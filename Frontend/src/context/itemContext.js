@@ -2,7 +2,9 @@ import { createContext } from "react";
 
 const itemContext = createContext({
     item: [],
-    setItems: () => { }
+    setItems: () => { },
+    delete: () => { },
+    edit: () => { }
 })
 
 

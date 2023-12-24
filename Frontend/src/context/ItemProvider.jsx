@@ -7,6 +7,12 @@ const ItemProvider = (props) => {
   const providerValues = {
     items: items,
     setItems: setItems,
+
+    delete: (id) => {
+      setItems((prev) => {
+        return prev.filter((val) => val.id !== id);
+      });
+    },
   };
 
   return (

@@ -1,5 +1,5 @@
 // importing hooks
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 // importing components
 import ItemAdd from "./component/itemAdd";
@@ -8,8 +8,9 @@ import itemContext from "./context/itemContext";
 
 const App = () => {
   // hook assignment
-  const { setItems } = useContext(itemContext);
-
+  const { setItems, items } = useContext(itemContext);
+  const [editMode, setEditMode] = useState(false);
+  const [editItem, setEditItem] = useState({});
   // sideeffect
   useEffect(() => {
     (async () => {
@@ -26,10 +27,23 @@ const App = () => {
     })();
   }, []);
 
+  const onItemEdit = (id) => {
+    console.log(id);
+    setEditMode(true);
+    const findItem = items.find((val) => val.id === id);
+    setEditItem(findItem);
+  };
+
+  // console.log(editItem);
+
   return (
     <>
-      <ItemAdd />
-      <ProductsContainer />
+      <ItemAdd
+        editMode={editMode}
+        setEditMode={setEditMode}
+        editItem={editItem}
+      />
+      <ProductsContainer onItemEdit={onItemEdit} />
     </>
   );
 };
